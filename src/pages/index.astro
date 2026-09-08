@@ -61,16 +61,16 @@ const trackColor: Record<string, string> = {
       </div>
 
       <div class="track" style="--tk:var(--t6)">
-        <div class="track-h"><span class="label" style="color:var(--t6)">온디바이스 트랙</span><span class="why">4GB 메모리·50GB/s 대역폭에서 LLM을 돌리는 산술</span></div>
+        <div class="track-h"><span class="label" style="color:var(--t6)">온디바이스 아키텍처 트랙</span><span class="why">파라미터 예산 1B 이하에서 구조 자체가 달라진다</span></div>
         <div class="flow">
-          <span class="chip">On-device roofline</span><span class="ar">→</span>
-          <span class="chip">Quantization 기초</span><span class="ar">→</span>
-          <span class="chip">GPTQ · AWQ</span><span class="ar">→</span>
-          <span class="chip">QLoRA · QAT</span><span class="ar">→</span>
-          <span class="chip">BitNet · 1-bit LLM</span><span class="ar">→</span>
-          <span class="chip">Pruning · N:M sparsity</span><span class="ar">→</span>
-          <span class="chip">SLM · 증류 레시피</span><span class="ar">→</span>
-          <span class="chip">런타임 · NPU 커널</span>
+          <span class="chip">Sub-1B 설계 법칙</span><span class="ar">→</span>
+          <span class="chip">Embedding 예산 · weight tying</span><span class="ar">→</span>
+          <span class="chip">Layer sharing · Recursive</span><span class="ar">→</span>
+          <span class="chip">Local-global attention</span><span class="ar">→</span>
+          <span class="chip">Cross-layer KV 공유</span><span class="ar">→</span>
+          <span class="chip">MatFormer · elastic 모델</span><span class="ar">→</span>
+          <span class="chip">On-device MoE</span><span class="ar">→</span>
+          <span class="chip">BitNet · BitLinear</span>
         </div>
       </div>
 
@@ -225,15 +225,16 @@ const trackColor: Record<string, string> = {
           </ul>
         </article>
         <article class="card" style="--ck:var(--t6)">
-          <h3><span class="cn">10</span>온디바이스</h3>
+          <h3><span class="cn">10</span>온디바이스 아키텍처</h3>
           <ul>
-            <li data-tags="base"><span class="topic"><b>On-device roofline</b><span class="tag base">기초</span></span><span class="note">LPDDR 대역폭 → 토큰/초 상한</span></li>
-            <li data-tags="base"><span class="topic"><b>Quantization 기초</b><span class="tag base">기초</span></span><span class="note">scale·zero-point·group</span></li>
-            <li data-tags="new"><span class="topic"><b>Weight-only PTQ</b><span class="tag new">최신</span></span><span class="note">GPTQ · AWQ · outlier</span></li>
-            <li data-tags="new"><span class="topic"><b>BitNet b1.58 · 1-bit</b><span class="tag new">최신</span></span></li>
-            <li data-tags="new"><span class="topic"><b>QLoRA · 단말 개인화</b><span class="tag new">최신</span></span><span class="note">NF4 · adapter swap</span></li>
-            <li data-tags="base"><span class="topic"><b>Pruning · N:M sparsity</b><span class="tag base">기초</span></span><span class="note">SparseGPT · Wanda</span></li>
-            <li data-tags="base"><span class="topic"><b>런타임 · NPU 커널</b><span class="tag base">기초</span></span><span class="note">llama.cpp · MLX · ExecuTorch</span></li>
+            <li data-tags="base"><span class="topic"><b>Sub-1B 설계 법칙</b><span class="tag base">기초</span></span><span class="note">depth vs width · MobileLLM</span></li>
+            <li data-tags="base"><span class="topic"><b>Embedding 예산 · weight tying</b><span class="tag base">기초</span></span><span class="note">작은 모델일수록 vocab이 지배</span></li>
+            <li data-tags="new"><span class="topic"><b>Layer sharing · Recursive</b><span class="tag new">최신</span></span><span class="note">파라미터 없이 깊이 사기</span></li>
+            <li data-tags="new"><span class="topic"><b>Local-global attention</b><span class="tag new">최신</span></span><span class="note">SWA 비율 · Gemma 계열</span></li>
+            <li data-tags="new"><span class="topic"><b>Cross-layer KV 공유</b><span class="tag new">최신</span></span><span class="note">CLA · MLKV, 층 방향 절감</span></li>
+            <li data-tags="new"><span class="topic"><b>MatFormer · Per-Layer Embedding</b><span class="tag new">최신</span></span><span class="note">Gemma 3n의 elastic 구조</span></li>
+            <li data-tags="new"><span class="topic"><b>On-device MoE</b><span class="tag new">최신</span></span><span class="note">연산은 줄고 메모리는 안 줄고</span></li>
+            <li data-tags="new"><span class="topic"><b>BitNet · BitLinear</b><span class="tag new">최신</span></span><span class="note">사후 압축이 아닌 학습 구조</span></li>
           </ul>
         </article>
       </div>
