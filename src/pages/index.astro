@@ -9,6 +9,7 @@ const trackColor: Record<string, string> = {
   '롱컨텍스트': 'var(--t3)',
   '정렬·추론': 'var(--t4)',
   '파격': 'var(--t5)',
+  '온디바이스': 'var(--t6)',
 };
 ---
 <Base title="LLM 딥다이브 — 수식으로 파고드는 LLM 해설">
@@ -42,7 +43,7 @@ const trackColor: Record<string, string> = {
     <!-- roadmap -->
     <section id="roadmap" class="sec">
       <div class="sec-h"><span class="n">동선</span><h2>다음 편 트랙</h2></div>
-      <p class="sec-sub">발행된 글에서 이어지는 다섯 갈래. 점선 칩은 발행 완료된 글(클릭하면 열립니다), ★는 지금 우선 추천. 트랙은 가로로 스크롤됩니다.</p>
+      <p class="sec-sub">발행된 글에서 이어지는 여섯 갈래. 점선 칩은 발행 완료된 글(클릭하면 열립니다), ★는 지금 우선 추천. 트랙은 가로로 스크롤됩니다.</p>
 
       <div class="track" style="--tk:var(--t1)">
         <div class="track-h"><span class="label" style="color:var(--t1)">효율 트랙</span><span class="why">decode의 memory-bound를 하나씩 공략</span></div>
@@ -56,6 +57,20 @@ const trackColor: Record<string, string> = {
           <span class="chip">Quantization</span><span class="ar">→</span>
           <span class="chip">FP8 · KV 양자화</span><span class="ar">→</span>
           <span class="chip">P·D Disaggregation</span>
+        </div>
+      </div>
+
+      <div class="track" style="--tk:var(--t6)">
+        <div class="track-h"><span class="label" style="color:var(--t6)">온디바이스 트랙</span><span class="why">4GB 메모리·50GB/s 대역폭에서 LLM을 돌리는 산술</span></div>
+        <div class="flow">
+          <span class="chip">On-device roofline</span><span class="ar">→</span>
+          <span class="chip">Quantization 기초</span><span class="ar">→</span>
+          <span class="chip">GPTQ · AWQ</span><span class="ar">→</span>
+          <span class="chip">QLoRA · QAT</span><span class="ar">→</span>
+          <span class="chip">BitNet · 1-bit LLM</span><span class="ar">→</span>
+          <span class="chip">Pruning · N:M sparsity</span><span class="ar">→</span>
+          <span class="chip">SLM · 증류 레시피</span><span class="ar">→</span>
+          <span class="chip">런타임 · NPU 커널</span>
         </div>
       </div>
 
@@ -107,7 +122,7 @@ const trackColor: Record<string, string> = {
     <!-- categories -->
     <section class="sec">
       <div class="sec-h"><span class="n">전체</span><h2>범주별 토픽</h2></div>
-      <p class="sec-sub">아홉 범주의 후보 토픽. 태그로 걸러 보세요.</p>
+      <p class="sec-sub">열 범주의 후보 토픽. 태그로 걸러 보세요.</p>
       <div class="filters" role="group" aria-label="태그 필터">
         <button data-filter="all" aria-pressed="true">전체</button>
         <button data-filter="base" aria-pressed="false">기초</button>
@@ -207,6 +222,18 @@ const trackColor: Record<string, string> = {
             <li data-tags="new"><span class="topic"><b>Diffusion LLM</b><span class="tag new">최신</span></span></li>
             <li data-tags="new"><span class="topic"><b>FP4/NVFP4 · 서빙 재설계</b><span class="tag new">최신</span></span></li>
             <li data-tags="new"><span class="topic"><b>World models · 지속형 에이전트</b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t6)">
+          <h3><span class="cn">10</span>온디바이스</h3>
+          <ul>
+            <li data-tags="base"><span class="topic"><b>On-device roofline</b><span class="tag base">기초</span></span><span class="note">LPDDR 대역폭 → 토큰/초 상한</span></li>
+            <li data-tags="base"><span class="topic"><b>Quantization 기초</b><span class="tag base">기초</span></span><span class="note">scale·zero-point·group</span></li>
+            <li data-tags="new"><span class="topic"><b>Weight-only PTQ</b><span class="tag new">최신</span></span><span class="note">GPTQ · AWQ · outlier</span></li>
+            <li data-tags="new"><span class="topic"><b>BitNet b1.58 · 1-bit</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>QLoRA · 단말 개인화</b><span class="tag new">최신</span></span><span class="note">NF4 · adapter swap</span></li>
+            <li data-tags="base"><span class="topic"><b>Pruning · N:M sparsity</b><span class="tag base">기초</span></span><span class="note">SparseGPT · Wanda</span></li>
+            <li data-tags="base"><span class="topic"><b>런타임 · NPU 커널</b><span class="tag base">기초</span></span><span class="note">llama.cpp · MLX · ExecuTorch</span></li>
           </ul>
         </article>
       </div>
