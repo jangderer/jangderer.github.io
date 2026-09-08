@@ -11,6 +11,7 @@ const trackColor: Record<string, string> = {
   '파격': 'var(--t5)',
   '온디바이스': 'var(--t6)',
   '프런티어': 'var(--t7)',
+  '학습': 'var(--t8)',
 };
 ---
 <Base title="LLM 딥다이브 — 수식으로 파고드는 LLM 해설">
@@ -44,7 +45,7 @@ const trackColor: Record<string, string> = {
     <!-- roadmap -->
     <section id="roadmap" class="sec">
       <div class="sec-h"><span class="n">동선</span><h2>다음 편 트랙</h2></div>
-      <p class="sec-sub">발행된 글에서 이어지는 일곱 갈래. 점선 칩은 발행 완료된 글(클릭하면 열립니다), ★는 지금 우선 추천. 트랙은 가로로 스크롤됩니다.</p>
+      <p class="sec-sub">발행된 글에서 이어지는 여덟 갈래. 점선 칩은 발행 완료된 글(클릭하면 열립니다), ★는 지금 우선 추천. 트랙은 가로로 스크롤됩니다.</p>
 
       <div class="track" style="--tk:var(--t7)">
         <div class="track-h"><span class="label" style="color:var(--t7)">프런티어 트랙</span><span class="why">기술 보고서를 한 편에 한 모델씩 해부</span></div>
@@ -60,6 +61,18 @@ const trackColor: Record<string, string> = {
         </div>
       </div>
 
+      <div class="track" style="--tk:var(--t8)">
+        <div class="track-h"><span class="label" style="color:var(--t8)">학습 트랙</span><span class="why">모델을 만드는 쪽의 문법</span></div>
+        <div class="flow">
+          <span class="chip">Pretraining objective</span><span class="ar">→</span>
+          <a class="chip done" href="/posts/muon-optimizer/">✓ Muon · 옵티마이저</a><span class="ar">→</span>
+          <span class="chip">Scaling law 재검토</span><span class="ar">→</span>
+          <span class="chip">Mixed precision (FP8 · FP4)</span><span class="ar">→</span>
+          <span class="chip">분산 학습 (ZeRO · FSDP · TP · PP)</span><span class="ar">→</span>
+          <span class="chip">Data curation · mid-training</span>
+        </div>
+      </div>
+
       <div class="track" style="--tk:var(--t1)">
         <div class="track-h"><span class="label" style="color:var(--t1)">효율 트랙</span><span class="why">decode의 memory-bound를 하나씩 공략</span></div>
         <div class="flow">
@@ -68,6 +81,7 @@ const trackColor: Record<string, string> = {
           <a class="chip done" href="/posts/gqa-mqa/">✓ GQA · MQA</a><span class="ar">→</span>
           <a class="chip done" href="/posts/flashattention/">✓ FlashAttention</a><span class="ar">→</span>
           <a class="chip done" href="/posts/speculative-decoding/">✓ Speculative Decoding</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/multi-token-prediction/">✓ Multi-Token Prediction</a><span class="ar">→</span>
           <span class="chip">PagedAttention</span><span class="ar">→</span>
           <span class="chip">Quantization</span><span class="ar">→</span>
           <span class="chip">FP8 · KV 양자화</span><span class="ar">→</span>
@@ -96,7 +110,8 @@ const trackColor: Record<string, string> = {
           <a class="chip done" href="/posts/ssm-mamba2/">✓ SSM · Mamba-2</a><span class="ar">→</span>
           <a class="chip done" href="/posts/hybrid-mamba-attention/">✓ Hybrid (Mamba+Attn)</a><span class="ar">→</span>
           <a class="chip done" href="/posts/mixture-of-experts/">✓ Mixture-of-Experts</a><span class="ar">→</span>
-          <a class="chip done" href="/posts/mla/">✓ Multi-head Latent Attn</a>
+          <a class="chip done" href="/posts/mla/">✓ Multi-head Latent Attn</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/gated-attention/">✓ Gated Attention</a>
         </div>
       </div>
 
