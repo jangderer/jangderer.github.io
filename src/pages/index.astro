@@ -46,6 +46,20 @@ const trackColor: Record<string, string> = {
       <div class="sec-h"><span class="n">동선</span><h2>다음 편 트랙</h2></div>
       <p class="sec-sub">발행된 글에서 이어지는 일곱 갈래. 점선 칩은 발행 완료된 글(클릭하면 열립니다), ★는 지금 우선 추천. 트랙은 가로로 스크롤됩니다.</p>
 
+      <div class="track" style="--tk:var(--t7)">
+        <div class="track-h"><span class="label" style="color:var(--t7)">프런티어 트랙</span><span class="why">2025–26 공개 모델에서 실제로 새로운 것만</span></div>
+        <div class="flow">
+          <span class="chip">프런티어 모델 해부</span><span class="ar">→</span>
+          <span class="chip">Reasoning 계보 · long CoT</span><span class="ar">→</span>
+          <span class="chip">Agentic RL · multi-turn</span><span class="ar">→</span>
+          <span class="chip">Native sparse attention</span><span class="ar">→</span>
+          <span class="chip">Muon · 프런티어 optimizer</span><span class="ar">→</span>
+          <span class="chip">FP4 학습 · NVFP4</span><span class="ar">→</span>
+          <span class="chip">Scaling law 재검토</span><span class="ar">→</span>
+          <span class="chip">장기 메모리 · 지속형 에이전트</span>
+        </div>
+      </div>
+
       <div class="track" style="--tk:var(--t1)">
         <div class="track-h"><span class="label" style="color:var(--t1)">효율 트랙</span><span class="why">decode의 memory-bound를 하나씩 공략</span></div>
         <div class="flow">
@@ -116,20 +130,6 @@ const trackColor: Record<string, string> = {
           <span class="chip">Next-token prediction</span><span class="ar">→</span>
           <span class="chip star">★ Diffusion LLM</span><span class="ar">→</span>
           <span class="chip">Hybrid AR-Diffusion</span>
-        </div>
-      </div>
-
-      <div class="track" style="--tk:var(--t7)">
-        <div class="track-h"><span class="label" style="color:var(--t7)">프런티어 트랙</span><span class="why">2025–26 공개 모델에서 실제로 새로운 것만</span></div>
-        <div class="flow">
-          <span class="chip">프런티어 모델 해부</span><span class="ar">→</span>
-          <span class="chip">Reasoning 계보 · long CoT</span><span class="ar">→</span>
-          <span class="chip">Agentic RL · multi-turn</span><span class="ar">→</span>
-          <span class="chip">Native sparse attention</span><span class="ar">→</span>
-          <span class="chip">Muon · 프런티어 optimizer</span><span class="ar">→</span>
-          <span class="chip">FP4 학습 · NVFP4</span><span class="ar">→</span>
-          <span class="chip">Scaling law 재검토</span><span class="ar">→</span>
-          <span class="chip">장기 메모리 · 지속형 에이전트</span>
         </div>
       </div>
     </section>
