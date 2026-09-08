@@ -1,0 +1,295 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const posts = (await getCollection('posts')).sort((a, b) => a.data.order - b.data.order);
+const trackColor: Record<string, string> = {
+  '아키텍처': 'var(--t2)',
+  '추론 효율': 'var(--t1)',
+  '롱컨텍스트': 'var(--t3)',
+  '정렬·추론': 'var(--t4)',
+  '파격': 'var(--t5)',
+};
+---
+<Base title="LLM 딥다이브 — 수식으로 파고드는 LLM 해설">
+  <div class="wrap home">
+
+    <header class="hero">
+      <div class="eyebrow">LLM Deep Dive · 2025–2026</div>
+      <h1>수식으로 파고드는 LLM 내부구조</h1>
+      <p class="lede">트랜스포머·추론 효율·아키텍처를 전공자 눈높이에서, 유도와 그림까지. 이 페이지는 발행된 글과 앞으로의 <strong>콘텐츠 로드맵</strong>을 함께 담은 허브입니다.</p>
+    </header>
+
+    <!-- posts -->
+    <section id="posts" class="sec">
+      <div class="sec-h"><span class="n">글</span><h2>발행된 글</h2></div>
+      <div class="posts-grid">
+        {posts.map((p) => (
+          <a class="post-card" href={`/posts/${p.slug}/`} style={`--pc:${trackColor[p.data.track] ?? 'var(--t1)'}`}>
+            {p.data.hero && <div class="thumb"><img src={p.data.hero} alt="" loading="lazy" width="640" height="400" /></div>}
+            <div class="pc-body">
+              <div class="pc-track">{p.data.track}</div>
+              <h3>{p.data.title}</h3>
+              {p.data.subtitle && <div class="pc-sub">{p.data.subtitle}</div>}
+              <p class="pc-desc">{p.data.description}</p>
+              <div class="pc-tags">{p.data.tags.slice(0, 4).map((t) => <span class="tag">#{t}</span>)}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- roadmap -->
+    <section id="roadmap" class="sec">
+      <div class="sec-h"><span class="n">동선</span><h2>다음 편 트랙</h2></div>
+      <p class="sec-sub">발행된 글에서 이어지는 다섯 갈래. 점선 칩은 발행 완료된 글(클릭하면 열립니다), ★는 지금 우선 추천. 트랙은 가로로 스크롤됩니다.</p>
+
+      <div class="track" style="--tk:var(--t1)">
+        <div class="track-h"><span class="label" style="color:var(--t1)">효율 트랙</span><span class="why">decode의 memory-bound를 하나씩 공략</span></div>
+        <div class="flow">
+          <a class="chip done" href="/posts/prefill-decode/">✓ Prefill·Decode</a><span class="ar">→</span>
+          <span class="chip">KV cache 심층</span><span class="ar">→</span>
+          <a class="chip done" href="/posts/gqa-mqa/">✓ GQA · MQA</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/flashattention/">✓ FlashAttention</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/speculative-decoding/">✓ Speculative Decoding</a><span class="ar">→</span>
+          <span class="chip">PagedAttention</span><span class="ar">→</span>
+          <span class="chip">Quantization</span><span class="ar">→</span>
+          <span class="chip">FP8 · KV 양자화</span><span class="ar">→</span>
+          <span class="chip">P·D Disaggregation</span>
+        </div>
+      </div>
+
+      <div class="track" style="--tk:var(--t2)">
+        <div class="track-h"><span class="label" style="color:var(--t2)">아키텍처 트랙</span><span class="why">linear attention의 직계 후손</span></div>
+        <div class="flow">
+          <a class="chip done" href="/posts/linear-attention/">✓ Linear Attention</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/ssm-mamba2/">✓ SSM · Mamba-2</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/hybrid-mamba-attention/">✓ Hybrid (Mamba+Attn)</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/mixture-of-experts/">✓ Mixture-of-Experts</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/mla/">✓ Multi-head Latent Attn</a>
+        </div>
+      </div>
+
+      <div class="track" style="--tk:var(--t3)">
+        <div class="track-h"><span class="label" style="color:var(--t3)">롱컨텍스트 트랙</span><span class="why">RoPE에서 2M+ 토큰 확장·압축까지</span></div>
+        <div class="flow">
+          <span class="chip">RoPE 기초</span><span class="ar">→</span>
+          <span class="chip">Context 확장 개요</span><span class="ar">→</span>
+          <span class="chip">RoPE scaling (YaRN)</span><span class="ar">→</span>
+          <span class="chip">KV 압축</span><span class="ar">→</span>
+          <span class="chip">RAG · long-context RAG</span>
+        </div>
+      </div>
+
+      <div class="track" style="--tk:var(--t4)">
+        <div class="track-h"><span class="label" style="color:var(--t4)">정렬·추론 트랙</span><span class="why">효율과 대비되는 "품질" 서사</span></div>
+        <div class="flow">
+          <span class="chip">SFT</span><span class="ar">→</span>
+          <span class="chip">RLHF · PPO</span><span class="ar">→</span>
+          <span class="chip">DPO 계열</span><span class="ar">→</span>
+          <span class="chip">RLVR</span><span class="ar">→</span>
+          <a class="chip done" href="/posts/r1-grpo/">✓ GRPO로 보는 R1</a><span class="ar">→</span>
+          <span class="chip">Test-time compute</span>
+        </div>
+      </div>
+
+      <div class="track" style="--tk:var(--t5)">
+        <div class="track-h"><span class="label" style="color:var(--t5)">파격 전환 트랙</span><span class="why">생성 패러다임 자체를 뒤집는 변주</span></div>
+        <div class="flow">
+          <span class="chip">Next-token prediction</span><span class="ar">→</span>
+          <span class="chip star">★ Diffusion LLM</span><span class="ar">→</span>
+          <span class="chip">Hybrid AR-Diffusion</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- categories -->
+    <section class="sec">
+      <div class="sec-h"><span class="n">전체</span><h2>범주별 토픽</h2></div>
+      <p class="sec-sub">아홉 범주의 후보 토픽. 태그로 걸러 보세요.</p>
+      <div class="filters" role="group" aria-label="태그 필터">
+        <button data-filter="all" aria-pressed="true">전체</button>
+        <button data-filter="base" aria-pressed="false">기초</button>
+        <button data-filter="new" aria-pressed="false">최신</button>
+      </div>
+      <div class="grid" id="grid">
+        <article class="card" style="--ck:var(--t3)">
+          <h3><span class="cn">01</span>기초</h3>
+          <ul>
+            <li data-tags="base"><span class="topic"><b>Transformer 구조 완전 해부</b><span class="tag base">기초</span></span></li>
+            <li data-tags="base"><span class="topic"><b>Self-attention의 수학</b><span class="tag base">기초</span></span></li>
+            <li data-tags="base"><span class="topic"><b>Positional Encoding 3부작</b><span class="tag base">기초</span></span><span class="note">sinusoidal → RoPE → ALiBi</span></li>
+            <li data-tags="base"><span class="topic"><b>Tokenization (BPE)</b><span class="tag base">기초</span></span></li>
+            <li data-tags="base"><span class="topic"><b>Normalization (RMSNorm)</b><span class="tag base">기초</span></span></li>
+            <li data-tags="base"><span class="topic"><b>Activation (SwiGLU)</b><span class="tag base">기초</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t2)">
+          <h3><span class="cn">02</span>아키텍처 변형</h3>
+          <ul>
+            <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/mixture-of-experts/">Mixture-of-Experts</a></b><span class="tag new">최신</span></span><span class="note">DeepSeek-V3·Qwen3</span></li>
+            <li data-tags="base" class="done"><span class="topic"><b><a href="/posts/gqa-mqa/">GQA · MQA</a></b><span class="tag base">기초</span></span></li>
+            <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/flashattention/">FlashAttention v1→3</a></b><span class="tag new">최신</span></span></li>
+            <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/ssm-mamba2/">SSM · Mamba-2</a></b><span class="tag new">최신</span></span></li>
+            <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/hybrid-mamba-attention/">Hybrid (Mamba+Attention)</a></b><span class="tag new">최신</span></span></li>
+            <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/mla/">Multi-head Latent Attention</a></b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t4)">
+          <h3><span class="cn">03</span>학습</h3>
+          <ul>
+            <li data-tags="base"><span class="topic"><b>Pretraining objective</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Scaling Laws</b><span class="tag new">최신</span></span><span class="note">Chinchilla → inference-aware</span></li>
+            <li data-tags="base"><span class="topic"><b>Mixed precision (FP8)</b><span class="tag base">기초</span></span></li>
+            <li data-tags="base"><span class="topic"><b>분산 학습 (ZeRO/FSDP/TP/PP)</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Data curation · mid-training</b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t4)">
+          <h3><span class="cn">04</span>정렬·후처리</h3>
+          <ul>
+            <li data-tags="base"><span class="topic"><b>SFT</b><span class="tag base">기초</span></span></li>
+            <li data-tags="base"><span class="topic"><b>RLHF · PPO</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>DPO 계열</b><span class="tag new">최신</span></span><span class="note">SimPO·KTO·ORPO</span></li>
+            <li data-tags="new"><span class="topic"><b>RLVR</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>GRPO · DAPO</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>o1/R1 reasoning RL</b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t1)">
+          <h3><span class="cn">05</span>추론 효율</h3>
+          <ul>
+            <li data-tags="base"><span class="topic"><b>KV cache 완전 이해</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>PagedAttention · continuous batching</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Weight quantization (GPTQ·AWQ)</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>FP8 · KV cache 양자화</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Prefill/Decode Disaggregation</b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t3)">
+          <h3><span class="cn">06</span>롱컨텍스트·메모리</h3>
+          <ul>
+            <li data-tags="base"><span class="topic"><b>Context 확장, 왜 어려운가</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>RoPE scaling (YaRN·LongRoPE)</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>KV cache 압축·eviction</b><span class="tag new">최신</span></span></li>
+            <li data-tags="base"><span class="topic"><b>RAG 기초</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>롱컨텍스트 vs RAG</b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t4)">
+          <h3><span class="cn">07</span>추론능력·에이전트</h3>
+          <ul>
+            <li data-tags="base"><span class="topic"><b>Chain-of-Thought과 변형</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Test-time compute</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Test-time scaling의 함정</b><span class="tag new">최신</span></span></li>
+            <li data-tags="base"><span class="topic"><b>Tool use · function calling</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>MCP</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Agent 아키텍처 · Agentic RL</b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t5)">
+          <h3><span class="cn">08</span>멀티모달</h3>
+          <ul>
+            <li data-tags="base"><span class="topic"><b>VLM 기초</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Vision tokenization</b><span class="tag new">최신</span></span></li>
+            <li data-tags="base"><span class="topic"><b>Diffusion 모델 기초</b><span class="tag base">기초</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Unified any-to-any 모델</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>VLA · world model</b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+        <article class="card" style="--ck:var(--t5)">
+          <h3><span class="cn">09</span>2025–26 프런티어</h3>
+          <ul>
+            <li data-tags="new"><span class="topic"><b>Reasoning models 총정리</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>RL이 새 scaling 축</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>Diffusion LLM</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>FP4/NVFP4 · 서빙 재설계</b><span class="tag new">최신</span></span></li>
+            <li data-tags="new"><span class="topic"><b>World models · 지속형 에이전트</b><span class="tag new">최신</span></span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .home{padding-top:clamp(28px,5vw,56px)}
+  .hero{border-bottom:1px solid var(--border);padding-bottom:30px;margin-bottom:8px}
+  .hero h1{font-size:clamp(30px,5.6vw,52px);font-weight:800;line-height:1.02;margin:14px 0 0}
+  .hero .lede{margin:16px 0 0;max-width:60ch;color:var(--muted);font-size:17px}
+  .sec{margin-top:52px}
+  .sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .sec-h h2{font-size:22px;font-weight:700}
+  .sec-h .n{font-family:var(--mono);font-size:13px;color:var(--faint);font-weight:600}
+  .sec-sub{color:var(--muted);font-size:14px;margin:0 0 22px;max-width:66ch}
+
+  .posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .post-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);
+    border-top:3px solid var(--pc);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);
+    color:var(--ink);transition:transform .16s,box-shadow .16s}
+  .post-card:hover{transform:translateY(-3px);box-shadow:0 6px 14px rgba(20,30,45,.1),0 18px 40px rgba(20,30,45,.1);text-decoration:none}
+  .post-card .thumb{background:#fff;border-bottom:1px solid var(--border);aspect-ratio:16/10;overflow:hidden}
+  .post-card .thumb img{width:100%;height:100%;object-fit:contain}
+  .post-card .pc-body{padding:16px 17px 17px;display:flex;flex-direction:column;gap:7px;flex:1}
+  .pc-track{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--pc)}
+  .post-card h3{font-family:var(--disp);font-weight:700;font-size:16px;line-height:1.25;margin:0}
+  .pc-sub{color:var(--muted);font-size:13px;font-weight:500}
+  .pc-desc{color:var(--muted);font-size:13px;line-height:1.55;margin:2px 0 0}
+  .pc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:6px}
+  .pc-tags .tag{font-size:10px}
+
+  .track{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;
+    margin-bottom:14px;box-shadow:var(--shadow);border-top:3px solid var(--tk,var(--t1))}
+  .track-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:13px}
+  .track-h .label{font-family:var(--disp);font-weight:700;font-size:15.5px}
+  .track-h .why{color:var(--muted);font-size:12.5px}
+  .flow{display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+  .flow::-webkit-scrollbar{height:7px}
+  .flow::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:4px}
+  .chip{flex:none;display:inline-flex;align-items:center;padding:8px 12px;border-radius:9px;
+    border:1px solid color-mix(in srgb,var(--tk) 36%,var(--border));
+    background:color-mix(in srgb,var(--tk) 8%,var(--surface));font-size:13px;font-weight:500;
+    white-space:nowrap;color:var(--ink);line-height:1.2}
+  .chip.done{border-style:dashed;background:transparent;color:var(--muted)}
+  a.chip{text-decoration:none;cursor:pointer;transition:color .15s,border-color .15s,background .15s}
+  a.chip.done:hover,a.chip.done:focus-visible{color:var(--tk);border-color:var(--tk);border-style:solid;
+    background:color-mix(in srgb,var(--tk) 8%,var(--surface));outline:none}
+  .card li.done b a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--muted)}
+  .card li.done b a::before{content:"✓ ";color:var(--ck)}
+  .chip.star{border-width:1.5px;background:color-mix(in srgb,var(--tk) 15%,var(--surface));font-weight:600;color:var(--tk)}
+  .ar{flex:none;padding:0 8px;color:var(--faint);font-family:var(--mono)}
+
+  .filters{display:flex;gap:8px;margin:0 0 20px;flex-wrap:wrap}
+  .filters button{font-family:var(--mono);font-size:12px;font-weight:600;padding:7px 14px;border-radius:8px;
+    border:1px solid var(--border-strong);background:var(--surface);color:var(--muted);cursor:pointer;transition:.15s}
+  .filters button:hover{border-color:var(--accent);color:var(--ink)}
+  .filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 18px 8px;
+    box-shadow:var(--shadow);border-top:3px solid var(--ck,var(--faint))}
+  .card > h3{font-size:15.5px;font-weight:700;display:flex;align-items:baseline;gap:9px}
+  .card > h3 .cn{font-family:var(--mono);font-size:12px;color:var(--ck,var(--faint));font-weight:600}
+  .card ul{list-style:none;margin:13px 0 0;padding:0;display:flex;flex-direction:column}
+  .card li{padding:9px 0;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:3px;transition:opacity .18s}
+  .card li:first-child{border-top:0}
+  .card .topic{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+  .card .topic b{font-weight:600;font-size:13.5px}
+  .card .note{color:var(--muted);font-size:12px}
+  .card li.dim{opacity:.24}
+</style>
+
+<script>
+  const grid = document.getElementById('grid');
+  if (grid) {
+    const items = Array.from(grid.querySelectorAll('li[data-tags]'));
+    const btns = Array.from(document.querySelectorAll('.filters button'));
+    const apply = (f: string) => {
+      items.forEach((li) => {
+        const match = f === 'all' || (li.getAttribute('data-tags') || '').includes(f);
+        li.classList.toggle('dim', !match);
+      });
+      btns.forEach((b) => b.setAttribute('aria-pressed', String(b.getAttribute('data-filter') === f)));
+    };
+    btns.forEach((b) => b.addEventListener('click', () => apply(b.getAttribute('data-filter') || 'all')));
+  }
+</script>

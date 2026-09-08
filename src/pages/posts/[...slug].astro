@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts')).sort((a, b) => a.data.order - b.data.order);
+  return posts.map((entry, i) => ({
+    params: { slug: entry.slug },
+    props: {
+      entry,
+      prev: posts[i - 1] ?? null,
+      next: posts[i + 1] ?? null,
+    },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await entry.render();
+const d = entry.data;
+const dateStr = d.pubDate.toISOString().slice(0, 10);
+---
+<Base title={d.title} description={d.description}>
+  <article class="article">
+    <header class="article-head">
+      <div class="track">{d.track}</div>
+      <h1>{d.title}</h1>
+      {d.subtitle && <p class="sub">{d.subtitle}</p>}
+      <div class="meta">
+        <time datetime={dateStr}>{dateStr}</time>
+        <span class="tags">
+          {d.tags.map((t) => <span class="tag">#{t}</span>)}
+        </span>
+      </div>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <nav class="article-foot">
+      <span>{prev ? <a href={`/posts/${prev.slug}/`}>← {prev.data.title}</a> : <span></span>}</span>
+      <span><a href="/#posts">목록으로</a></span>
+      <span>{next ? <a href={`/posts/${next.slug}/`}>{next.data.title} →</a> : <span></span>}</span>
+    </nav>
+  </article>
+</Base>

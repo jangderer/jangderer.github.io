@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'LLM 내부구조·추론·아키텍처를 수식과 함께 파고드는 전공자용 해설 시리즈.' } = Astro.props;
+const site = 'LLM 딥다이브';
+---
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" />
+  <script is:inline>
+    (function(){
+      try{
+        var t = localStorage.getItem('theme');
+        if(t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      }catch(e){}
+    })();
+  </script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="row">
+      <a class="brand" href="/">LLM<span class="mk">·</span>딥다이브</a>
+      <div class="spacer"></div>
+      <a class="navlink" href="/#posts">글</a>
+      <a class="navlink" href="/#roadmap">로드맵</a>
+      <button class="theme-btn" id="themeToggle" type="button" aria-label="테마 전환">◐ 테마</button>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-foot">
+    <div class="row">
+      <span>{site} · 수식과 그림으로 파고드는 LLM 해설</span>
+      <span>Astro · KaTeX · velog 병행</span>
+    </div>
+  </footer>
+
+  <script is:inline>
+    (function(){
+      var btn = document.getElementById('themeToggle');
+      if(!btn) return;
+      function current(){
+        var set = document.documentElement.getAttribute('data-theme');
+        if(set) return set;
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function(){
+        var next = current() === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try{ localStorage.setItem('theme', next); }catch(e){}
+      });
+    })();
+  </script>
+</body>
+</html>
