@@ -82,6 +82,8 @@ const trackColor: Record<string, string> = {
           <a class="chip done" href="/posts/flashattention/">✓ FlashAttention</a><span class="ar">→</span>
           <a class="chip done" href="/posts/speculative-decoding/">✓ Speculative Decoding</a><span class="ar">→</span>
           <a class="chip done" href="/posts/multi-token-prediction/">✓ Multi-Token Prediction</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/instruction-following-pruning/">✓ Instruction-Following Pruning</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/yoco/">✓ YOCO</a><span class="ar">→</span>
           <span class="chip">PagedAttention</span><span class="ar">→</span>
           <span class="chip">Quantization</span><span class="ar">→</span>
           <span class="chip">FP8 · KV 양자화</span><span class="ar">→</span>
@@ -96,7 +98,7 @@ const trackColor: Record<string, string> = {
           <span class="chip">Embedding 예산 · weight tying</span><span class="ar">→</span>
           <a class="chip done" href="/posts/looped-transformer/">✓ Layer sharing · Recursive</a><span class="ar">→</span>
           <span class="chip">Local-global attention</span><span class="ar">→</span>
-          <span class="chip">Cross-layer KV 공유</span><span class="ar">→</span>
+          <a class="chip done" href="/posts/yoco/">✓ Cross-layer KV 공유</a><span class="ar">→</span>
           <span class="chip">MatFormer · elastic 모델</span><span class="ar">→</span>
           <span class="chip">On-device MoE</span><span class="ar">→</span>
           <span class="chip">BitNet · BitLinear</span>
@@ -112,7 +114,8 @@ const trackColor: Record<string, string> = {
           <a class="chip done" href="/posts/mixture-of-experts/">✓ Mixture-of-Experts</a><span class="ar">→</span>
           <a class="chip done" href="/posts/mla/">✓ Multi-head Latent Attn</a><span class="ar">→</span>
           <a class="chip done" href="/posts/gated-attention/">✓ Gated Attention</a><span class="ar">→</span>
-          <a class="chip done" href="/posts/looped-transformer/">✓ Looped Transformer</a>
+          <a class="chip done" href="/posts/looped-transformer/">✓ Looped Transformer</a><span class="ar">→</span>
+          <a class="chip done" href="/posts/engram/">✓ Engram</a>
         </div>
       </div>
 
@@ -265,9 +268,9 @@ const trackColor: Record<string, string> = {
           <ul>
             <li data-tags="base"><span class="topic"><b>Sub-1B 설계 법칙</b><span class="tag base">기초</span></span><span class="note">depth vs width · MobileLLM</span></li>
             <li data-tags="base"><span class="topic"><b>Embedding 예산 · weight tying</b><span class="tag base">기초</span></span><span class="note">작은 모델일수록 vocab이 지배</span></li>
-            <li data-tags="new"><span class="topic"><b>Layer sharing · Recursive</b><span class="tag new">최신</span></span><span class="note">파라미터 없이 깊이 사기</span></li>
+            <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/looped-transformer/">Layer sharing · Recursive</a></b><span class="tag new">최신</span></span><span class="note">파라미터 없이 깊이 사기</span></li>
             <li data-tags="new"><span class="topic"><b>Local-global attention</b><span class="tag new">최신</span></span><span class="note">SWA 비율 · Gemma 계열</span></li>
-            <li data-tags="new"><span class="topic"><b>Cross-layer KV 공유</b><span class="tag new">최신</span></span><span class="note">CLA · MLKV, 층 방향 절감</span></li>
+            <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/yoco/">Cross-layer KV 공유</a></b><span class="tag new">최신</span></span><span class="note">YOCO · CLA, 층 방향 절감</span></li>
             <li data-tags="new"><span class="topic"><b>MatFormer · Per-Layer Embedding</b><span class="tag new">최신</span></span><span class="note">Gemma 3n의 elastic 구조</span></li>
             <li data-tags="new"><span class="topic"><b>On-device MoE</b><span class="tag new">최신</span></span><span class="note">연산은 줄고 메모리는 안 줄고</span></li>
             <li data-tags="new"><span class="topic"><b>BitNet · BitLinear</b><span class="tag new">최신</span></span><span class="note">사후 압축이 아닌 학습 구조</span></li>
