@@ -96,6 +96,7 @@ const trackColor: Record<string, string> = {
         <div class="flow">
           <span class="chip">Sub-1B 설계 법칙</span><span class="ar">→</span>
           <span class="chip">Embedding 예산 · weight tying</span><span class="ar">→</span>
+          <a class="chip done" href="/posts/per-layer-embedding/">✓ Per-Layer Embedding</a><span class="ar">→</span>
           <a class="chip done" href="/posts/looped-transformer/">✓ Layer sharing · Recursive</a><span class="ar">→</span>
           <span class="chip">Local-global attention</span><span class="ar">→</span>
           <a class="chip done" href="/posts/yoco/">✓ Cross-layer KV 공유</a><span class="ar">→</span>
@@ -271,7 +272,8 @@ const trackColor: Record<string, string> = {
             <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/looped-transformer/">Layer sharing · Recursive</a></b><span class="tag new">최신</span></span><span class="note">파라미터 없이 깊이 사기</span></li>
             <li data-tags="new"><span class="topic"><b>Local-global attention</b><span class="tag new">최신</span></span><span class="note">SWA 비율 · Gemma 계열</span></li>
             <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/yoco/">Cross-layer KV 공유</a></b><span class="tag new">최신</span></span><span class="note">YOCO · CLA, 층 방향 절감</span></li>
-            <li data-tags="new"><span class="topic"><b>MatFormer · Per-Layer Embedding</b><span class="tag new">최신</span></span><span class="note">Gemma 3n의 elastic 구조</span></li>
+            <li data-tags="new" class="done"><span class="topic"><b><a href="/posts/per-layer-embedding/">Per-Layer Embedding</a></b><span class="tag new">최신</span></span><span class="note">파라미터의 절반을 조회 테이블로</span></li>
+            <li data-tags="new"><span class="topic"><b>MatFormer · elastic 모델</b><span class="tag new">최신</span></span><span class="note">Gemma 3n의 nested 구조</span></li>
             <li data-tags="new"><span class="topic"><b>On-device MoE</b><span class="tag new">최신</span></span><span class="note">연산은 줄고 메모리는 안 줄고</span></li>
             <li data-tags="new"><span class="topic"><b>BitNet · BitLinear</b><span class="tag new">최신</span></span><span class="note">사후 압축이 아닌 학습 구조</span></li>
           </ul>

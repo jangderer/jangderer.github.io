@@ -135,14 +135,14 @@ $$
 g^{(\ell)}_t=\frac{1}{\sqrt2}\Big(P^{(\ell)}_t+E^{\mathrm{PLE},(\ell)}_t\Big),
 $$
 
-$E^{\mathrm{PLE}}_t$는 토큰 ID로 조회하는 순수 룩업이고, $P_t$는 메인 임베딩을 사영해 정규화한 문맥 성분입니다. 이것이 층 $\ell$의 FFN 잔차 이후에 **네 번째 잔차 가지**로 주입됩니다.
+$E^{\mathrm{PLE}}_t$는 토큰 ID로 조회하는 순수 룩업이고, $P_t$는 메인 임베딩을 사영해 정규화한 문맥 성분입니다. 이것이 층 $\ell$의 FFN 잔차 이후에 **세 번째 잔차 가지**로 주입됩니다(attention, FFN, PLE).
 
 $$
 h\leftarrow h+\mathrm{RMSNorm}\Big(W^{(\ell)}_{\mathrm{up}}\big[\mathrm{gelu}(W^{(\ell)}_{\mathrm{gate}}h)\odot g^{(\ell)}_t\big]\Big),
 \qquad W^{(\ell)}_{\mathrm{gate}}\in\mathbb{R}^{256\times d}.
 $$
 
-핵심은 파라미터 수가 아니라 **어디에 둘 수 있느냐**입니다. $E^{\mathrm{PLE}}$는 곱셈에 참여하지 않는 순수 조회이므로 가속기 메모리에 올릴 필요가 없습니다. 저장소에 두고 메모리 매핑으로 필요한 토큰의 행만 읽으면 됩니다. Google의 안드로이드 문서가 "메모리 매핑된 per-layer embeddings"를 명시하고, PLE를 뺀 E2B 텍스트 모델이 1GB 미만이라고 밝히는 이유입니다.
+핵심은 파라미터 수가 아니라 **어디에 둘 수 있느냐**입니다. $E^{\mathrm{PLE}}$는 곱셈에 참여하지 않는 순수 조회이므로 가속기 메모리에 올릴 필요가 없습니다. 저장소에 두고 메모리 매핑으로 필요한 토큰의 행만 읽으면 됩니다. Google의 LiteRT-LM 자료가 "임베딩 파라미터는 메모리 매핑"된다고 명시하고, QAT 발표문이 PLE를 뺀 E2B 텍스트 모델(int2/int4 모바일 양자화)이 1GB 미만이라고 밝히는 이유입니다. 다만 사영 $W_{\mathrm{gate}}, W_{\mathrm{up}}$과 메인 임베딩을 PLE 차원으로 보내는 사영은 행렬 곱이므로 본체와 함께 있어야 합니다. 자세한 것은 Per-Layer Embedding 편에서 다룹니다.
 
 파라미터를 줄인 것이 아니라 **메모리 계층에서 자리를 옮긴** 것입니다.
 
